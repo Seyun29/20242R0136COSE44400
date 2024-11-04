@@ -9,6 +9,13 @@ import java.awt.*;
 @Getter
 @Setter
 public abstract class Shape {
+    public enum ShapeType {
+        LINE,
+        RECTANGLE,
+        ELLIPSE,
+        IMAGE,
+        TEXT
+    }
     //TODO: add TEXT shape
     private Double x1;
     private Double y1;
@@ -18,10 +25,11 @@ public abstract class Shape {
     private Double y2;
     private Integer stroke; //new BasicStroke(stroke)
     private Color color;
+    private ShapeType shapeType;
 
-    private boolean isClicked;
+//    private boolean isClicked;
 
-    public Shape(Double x1, Double y1, Double width, Double height, Double x2, Double y2, Integer stroke, Color color) {
+    public Shape(Double x1, Double y1, Double width, Double height, Double x2, Double y2, Integer stroke, Color color, ShapeType shapeType) {
         this.x1 = x1;
         this.y1 = y1;
         this.width = width;
@@ -30,11 +38,12 @@ public abstract class Shape {
         this.y2 = y2;
         this.stroke = stroke == null ? 1 : stroke;
         this.color = color == null? Helper.randomColor() : color;
-        this.isClicked = false;
+        this.shapeType = shapeType;
+//        this.isClicked = false;
     }
 
     public void printProperty(){
-        System.out.println("x1: " + x1 + ", y1: " + y1 + ", width: " + width + ", height: " + height + ", x2: " + x2 + ", y2: " + y2 + ", stroke: " + stroke + ", color: " + color);
+        System.out.println("type: " + shapeType + ", x1: " + x1 + ", y1: " + y1 + ", width: " + width + ", height: " + height + ", x2: " + x2 + ", y2: " + y2 + ", stroke: " + stroke + ", color: " + color);
     }
 
     public void move(int deltaX, int deltaY) {

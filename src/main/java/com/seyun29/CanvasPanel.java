@@ -11,7 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import static com.seyun29.Model.GlobalProperties.WINDOW_HEIGHT;
 import static com.seyun29.Model.GlobalProperties.WINDOW_WIDTH;
 
-public class MyPanel extends JPanel {
+public class CanvasPanel extends JPanel {
     private enum Mode {
         NORMAL,
         DRAW_LINE,
@@ -22,11 +22,11 @@ public class MyPanel extends JPanel {
     private final BoardModel boardModel;
     private Point startPoint;
 
-    MyPanel() {
+    CanvasPanel(BoardModel boardModel) {
         this.setBackground(Color.white);
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        this.boardModel = new BoardModel();
+        this.boardModel = boardModel;
         for (int i = 0; i < 10; i++) {
             this.boardModel.addShape(Helper.createRandomShape());
         }
@@ -37,8 +37,9 @@ public class MyPanel extends JPanel {
         //TODO: add text to the panel
 
         Button drawLineBtn = new Button("Draw YOUR Line");
+        //FIXME: fixme
         drawLineBtn.addActionListener((e)->{
-//            boardModel.addShape(Helper.createRandomShape());
+            boardModel.addShape(Helper.createRandomShape());
             this.mode = Mode.DRAW_LINE;
             repaint();
         });
@@ -49,11 +50,6 @@ public class MyPanel extends JPanel {
             repaint();
         });
         this.add(clearBtn); //TODO: implement clear button
-
-//        this.add(createRectBtn);
-//        this.add(createEllipseBtn);
-//        this.add(createLineBtn);
-//        this.add(createImageBtn);
 
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -70,9 +66,8 @@ public class MyPanel extends JPanel {
                 Shape clickedShape = boardModel.containsShape(e.getPoint());
                 if (clickedShape != null) {
                     //show properties on dashboard
-                    clickedShape.setClicked(true);
                     boardModel.setCurrentShape(clickedShape);
-//                    clickedShape.printProperty();
+                    clickedShape.printProperty();
                     startPoint = e.getPoint();
                 } else boardModel.setCurrentShape(null);
             }
@@ -90,28 +85,16 @@ public class MyPanel extends JPanel {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-                //FIXME: fix this
+//                FIXME: fix this
                 if (boardModel.getCurrentShape() != null) {
                     Shape currentShape = boardModel.getCurrentShape();
                     int deltaX = e.getX() - startPoint.x;
                     int deltaY = e.getY() - startPoint.y;
                     currentShape.move(deltaX, deltaY);
                     startPoint = e.getPoint();
+                    boardModel.setCurrentShape(currentShape); //FIXME: fix this,, use observer pattern
                     repaint();
                 }
-//                if (rect.contains(e.getPoint())) {
-//                    int deltaX = e.getX() - startPoint.x;
-//                    int deltaY = e.getY() - startPoint.y;
-//                    rect.setFrame(rect.getX() + deltaX, rect.getY() + deltaY, rect.getWidth(), rect.getHeight());
-//                    startPoint = e.getPoint();
-//                    repaint();
-//                } else if (oval.contains(e.getPoint())) {
-//                    int deltaX = e.getX() - startPoint.x;
-//                    int deltaY = e.getY() - startPoint.y;
-//                    oval.setFrame(oval.getX() + deltaX, oval.getY() + deltaY, oval.getWidth(), oval.getHeight());
-//                    startPoint = e.getPoint();
-//                    repaint();
-//                }
             }
         });
     }
@@ -122,4 +105,7 @@ public class MyPanel extends JPanel {
         boardModel.drawShapes((Graphics2D) g);
     }
 
+    public void refresh() {
+        repaint();
+    }
 }

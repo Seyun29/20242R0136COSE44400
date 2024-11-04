@@ -7,12 +7,14 @@ public class Ellipse extends Shape {
     private final Ellipse2D ellipse2D;
 
     public Ellipse(Double x1, Double y1, Double width, Double height) {
-        super(x1, y1, width, height, null, null, 1, null);
+        super(x1, y1, width, height, null, null, null, null, ShapeType.ELLIPSE);
+//        this.setStroke(null);
         this.ellipse2D = new Ellipse2D.Double(x1, y1, width, height);
     }
 
     public Ellipse(Double x1, Double y1, Double width, Double height, Integer stroke, Color color) {
-        super(x1, y1, width, height, null, null, stroke, color);
+        super(x1, y1, width, height, null, null, stroke, color, ShapeType.ELLIPSE);
+//        this.setStroke(null);
         this.ellipse2D = new Ellipse2D.Double(x1, y1, width, height);
     }
 

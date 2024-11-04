@@ -1,5 +1,6 @@
 package com.seyun29.Model;
 
+import com.seyun29.PropertyPanel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,16 @@ public class BoardModel {
     //Current Objects on Board
     private ArrayList<Shape> Shapes = new ArrayList<>();
     private Shape currentShape = null; //TODO: implement single selection feature!! (set currentShape to null when clicked outside of the shape)
-    //TODO: implement multiple selection feature in the future
+    private PropertyPanel propertyPanel;
 
-    public BoardModel() {}
+    public BoardModel(PropertyPanel propertyPanel) {
+        this.propertyPanel = propertyPanel;
+    }
+
+    public void setCurrentShape(Shape shape) {
+        currentShape = shape;
+        propertyPanel.updateProperties(shape); //FIXME: use Observer logic instead, apply design patterns...
+    }
 
     public void addShape(Shape shape) {
         Shapes.add(shape);

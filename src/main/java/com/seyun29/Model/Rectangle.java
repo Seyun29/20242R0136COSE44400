@@ -7,12 +7,14 @@ public class Rectangle extends Shape {
     private final Rectangle2D rectangle2D;
 
     public Rectangle(Double x1, Double y1, Double width, Double height) {
-        super(x1, y1, width, height, null, null, 1, null);
+        super(x1, y1, width, height, null, null, null, null, ShapeType.RECTANGLE);
+//        this.setStroke(null);     // FIXME: set Stroke to null
         this.rectangle2D = new Rectangle2D.Double(x1, y1, width, height);
     }
 
     public Rectangle(Double x1, Double y1, Double width, Double height, Integer stroke, Color color) {
-        super(x1, y1, width, height, null, null, stroke, color);
+        super(x1, y1, width, height, null, null, stroke, color, ShapeType.RECTANGLE);
+//        this.setStroke(null);     // FIXME: set Stroke to null
         this.rectangle2D = new Rectangle2D.Double(x1, y1, width, height);
     }
 

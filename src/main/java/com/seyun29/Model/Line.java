@@ -8,12 +8,12 @@ public class Line extends Shape {
     private final Line2D line2D;
 
     public Line(Double x1, Double y1, Double x2, Double y2) {
-        super(x1, y1, null, null, x2, y2, 3, null);
+        super(x1, y1, null, null, x2, y2, 3, null, ShapeType.LINE);
         this.line2D = new Line2D.Double(x1, y1, x2, y2);
     }
 
     public Line(Double x1, Double y1, Double x2, Double y2, Integer stroke, Color color) {
-        super(x1, y1, null, null, x2, y2, stroke, color);
+        super(x1, y1, null, null, x2, y2, stroke, color, ShapeType.LINE);
         this.line2D = new Line2D.Double(x1, y1, x2, y2);
     }
 
