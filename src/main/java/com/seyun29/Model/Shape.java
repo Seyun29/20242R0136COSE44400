@@ -26,6 +26,7 @@ public abstract class Shape {
     private Integer stroke; //new BasicStroke(stroke)
     private Color color;
     private ShapeType shapeType;
+    private String text = null;
 
 //    private boolean isClicked;
 

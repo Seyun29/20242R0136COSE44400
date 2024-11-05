@@ -14,14 +14,15 @@ public class PropertyPanel extends JPanel {
     //TODO: add buttons to apply the property changes
     //TODO: add button to remove the selected shape
     private final JTextField typeField;
-    private final JTextField x1Field;
-    private final JTextField y1Field;
-    private final JTextField x2Field;
-    private final JTextField y2Field;
-    private final JTextField widthField;
-    private final JTextField heightField;
-    private final JTextField strokeField;
-    private final JTextField colorField;
+    private final JTextField stringField; //for TEXT only
+    private final JTextField x1Field; //ALL
+    private final JTextField y1Field; //ALL
+    private final JTextField x2Field; //LINE
+    private final JTextField y2Field; //LINE
+    private final JTextField widthField; //RECT, ELLIPSE, IMAGE
+    private final JTextField heightField; //RECT, ELLIPSE, IMAGE
+    private final JTextField strokeField; //LINE
+    private final JTextField colorField; //ALL
 
     @Setter
     private BoardModel boardModel;
@@ -29,6 +30,7 @@ public class PropertyPanel extends JPanel {
     private CanvasPanel canvasPanel;
 
     public PropertyPanel() {
+        //FIXME: adjust fields being shown according to the types of the shape (enum)
         this.setBackground(PROPERTY_PANEL_COLOR);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -40,6 +42,8 @@ public class PropertyPanel extends JPanel {
         JPanel typeFieldPanel = createLabeledField("Type", typeField = new JTextField(), labelFont, fieldFont);
         typeField.setEditable(false);
         this.add(typeFieldPanel);
+        //FIXME: add TEXT here
+        this.add(createLabeledField("String", stringField = new JTextField(), labelFont, fieldFont));
         this.add(createLabeledField("x1", x1Field = new JTextField(), labelFont, fieldFont));
         this.add(createLabeledField("y1", y1Field = new JTextField(), labelFont, fieldFont));
         this.add(createLabeledField("x2", x2Field = new JTextField(), labelFont, fieldFont));
@@ -53,6 +57,7 @@ public class PropertyPanel extends JPanel {
         applyButton.addActionListener(e -> {
             Shape currentShape = boardModel.getCurrentShape();
             if (currentShape != null) {
+                currentShape.setText(stringField.getText().isEmpty() ? null : stringField.getText());
                 currentShape.setX1(Double.parseDouble(x1Field.getText()));
                 currentShape.setY1(Double.parseDouble(y1Field.getText()));
                 currentShape.setX2(x2Field.getText().isEmpty() ? null : Double.parseDouble(x2Field.getText()));
@@ -64,15 +69,38 @@ public class PropertyPanel extends JPanel {
                 canvasPanel.refresh();
             }
         });
+
+        Button bringToFrontButton = new Button("Bring to Front");
+        bringToFrontButton.addActionListener(e -> {
+            Shape currentShape = boardModel.getCurrentShape();
+            if (currentShape != null) {
+                boardModel.bringToFront(currentShape);
+                canvasPanel.refresh();
+            }
+        });
+
+        Button sendtoBackButton = new Button("Send to Back");
+        sendtoBackButton.addActionListener(e -> {
+            Shape currentShape = boardModel.getCurrentShape();
+            if (currentShape != null) {
+                boardModel.sendToBack(currentShape);
+                canvasPanel.refresh();
+            }
+        });
+
         Button removeButton = new Button("Remove this Object");
         removeButton.addActionListener(e -> {
             Shape currentShape = boardModel.getCurrentShape();
             if (currentShape != null) {
                 boardModel.removeShape(currentShape);
                 canvasPanel.refresh();
+                updateProperties(null);
             }
         });
+
         this.add(applyButton);
+        this.add(bringToFrontButton);
+        this.add(sendtoBackButton);
         this.add(removeButton);
     }
 
@@ -103,6 +131,7 @@ public class PropertyPanel extends JPanel {
     public void updateProperties(Shape shape) {
         if (shape != null) {
             typeField.setText(shape.getShapeType().toString());
+            stringField.setText(shape.getText() != null ? shape.getText() : "");
             x1Field.setText(shape.getX1().toString());
             y1Field.setText(shape.getY1().toString());
             x2Field.setText(shape.getX2() != null ? shape.getX2().toString() : "");
@@ -114,6 +143,7 @@ public class PropertyPanel extends JPanel {
 //            this.remove(x2Field.getParent()); //-> Remove the whole panel, if possible
         } else {
             typeField.setText("");
+            stringField.setText("");
             x1Field.setText("");
             y1Field.setText("");
             x2Field.setText("");

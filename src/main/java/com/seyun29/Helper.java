@@ -2,6 +2,7 @@ package com.seyun29;
 
 //import java.awt.*;
 import com.seyun29.Model.*;
+import com.seyun29.Model.Image;
 import com.seyun29.Model.Rectangle;
 import com.seyun29.Model.Shape;
 
@@ -33,5 +34,15 @@ public class Helper {
             default:
                 return null;
         }
+    }
+
+    public static Text createText(String string) {
+        Random random = new Random();
+        return new Text(random.nextDouble()*WINDOW_WIDTH, random.nextDouble()*WINDOW_HEIGHT, string.isEmpty() ? "EMPTY_TEXT" : string, 3, randomColor());
+    }
+
+    public static Image createImage(String imagePath) {
+        Random random = new Random();
+        return new Image(random.nextDouble()*WINDOW_WIDTH, random.nextDouble()*WINDOW_HEIGHT, random.nextDouble()*SHAPE_WIDTH, random.nextDouble()*SHAPE_HEIGHT, 3, randomColor(), imagePath);
     }
 }

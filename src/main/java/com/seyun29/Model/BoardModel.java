@@ -26,7 +26,7 @@ public class BoardModel {
 
     public void addShape(Shape shape) {
         Shapes.add(shape);
-        currentShape = shape;
+        setCurrentShape(shape);
     }
 
     public void removeShape(Shape shape) {
