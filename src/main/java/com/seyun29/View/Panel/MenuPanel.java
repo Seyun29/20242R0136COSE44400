@@ -1,5 +1,7 @@
 package com.seyun29.View.Panel;
 import com.seyun29.Controller.Controller;
+import com.seyun29.Model.CanvasModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
@@ -24,15 +26,15 @@ public class MenuPanel extends JPanel {
 
         Button drawLineBtn = new Button("Draw Line");
         drawLineBtn.setPreferredSize(buttonSize);
-        drawLineBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasPanel.Mode.DRAW_LINE));
+        drawLineBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasModel.Mode.DRAW_LINE));
 
         Button drawEllipseBtn = new Button("Draw Ellipse");
         drawEllipseBtn.setPreferredSize(buttonSize);
-        drawEllipseBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasPanel.Mode.DRAW_ELLIPSE));
+        drawEllipseBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasModel.Mode.DRAW_ELLIPSE));
 
         Button drawRectBtn = new Button("Draw Rectangle");
         drawRectBtn.setPreferredSize(buttonSize);
-        drawRectBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasPanel.Mode.DRAW_RECT));
+        drawRectBtn.addActionListener((e)-> this.controller.setDrawMode(CanvasModel.Mode.DRAW_RECT));
 
         //enter text textfield
         TextField enterTextField = new TextField("Enter text here!");
@@ -40,11 +42,11 @@ public class MenuPanel extends JPanel {
 
         Button addTextBtn = new Button("Add Text");
         addTextBtn.setPreferredSize(buttonSize);
-        addTextBtn.addActionListener((e)-> this.controller.addText(enterTextField.getText()));
+        addTextBtn.addActionListener((e)-> this.controller.drawText(enterTextField.getText()));
 
         Button addImageBtn = new Button("Add Image");
         addImageBtn.setPreferredSize(buttonSize);
-        addImageBtn.addActionListener((e)-> this.controller.addImage());
+        addImageBtn.addActionListener((e)-> this.controller.drawImage());
 
         Button clearBtn = new Button("Clear");
         clearBtn.setPreferredSize(buttonSize);

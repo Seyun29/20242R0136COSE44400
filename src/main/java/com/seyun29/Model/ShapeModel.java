@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class BoardModel {
+public class ShapeModel {
     //Current Objects on Board
     private ArrayList<Shape> Shapes = new ArrayList<>();
     @Setter
-    private Shape currentShape = null; //TODO: implement single selection feature!! (set currentShape to null when clicked outside of the shape)
+    private Shape currentShape = null;
 
-    public BoardModel() {}
+    public ShapeModel() {}
 
     public void addShape(Shape shape) {
         Shapes.add(shape);

@@ -19,20 +19,7 @@ import static com.seyun29.GlobalProperties.WINDOW_WIDTH;
 @Getter
 @Setter
 public class CanvasPanel extends JPanel {
-    public enum Mode {
-        NORMAL,
-        DRAW_LINE,
-        DRAW_ELLIPSE,
-        DRAW_RECT
-    }
-
-    private Mode mode = Mode.NORMAL;
     private final Controller controller;
-
-    private Point startPoint;
-    private Line currentLine;
-    private Ellipse currentEllipse;
-    private Rectangle currentRect;
 
     public CanvasPanel(Controller controller) {
         this.setBackground(Color.white);
@@ -66,6 +53,6 @@ public class CanvasPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        controller.drawShapes((Graphics2D) g);
+        controller.drawAllShapes((Graphics2D) g);
     }
 }

@@ -1,7 +1,8 @@
 package com.seyun29.View;
 
 import com.seyun29.Controller.Controller;
-import com.seyun29.Model.BoardModel;
+import com.seyun29.Model.CanvasModel;
+import com.seyun29.Model.ShapeModel;
 import com.seyun29.View.Panel.CanvasPanel;
 import com.seyun29.View.Panel.MenuPanel;
 import com.seyun29.View.Panel.PropertyPanel;
@@ -11,9 +12,10 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     //Model
-    BoardModel boardModel = new BoardModel();
+    ShapeModel shapeModel = new ShapeModel();
+    CanvasModel canvasModel = new CanvasModel();
     //Controller
-    Controller controller = new Controller(boardModel);
+    Controller controller = new Controller(shapeModel, canvasModel);
     //Views
     PropertyPanel propertyPanel = new PropertyPanel(controller);
     MenuPanel menuPanel = new MenuPanel(controller);
