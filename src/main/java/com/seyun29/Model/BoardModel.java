@@ -1,6 +1,6 @@
 package com.seyun29.Model;
 
-import com.seyun29.PropertyPanel;
+import com.seyun29.Model.Shape.Shape;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,17 +12,10 @@ import java.util.ArrayList;
 public class BoardModel {
     //Current Objects on Board
     private ArrayList<Shape> Shapes = new ArrayList<>();
+    @Setter
     private Shape currentShape = null; //TODO: implement single selection feature!! (set currentShape to null when clicked outside of the shape)
-    private PropertyPanel propertyPanel;
 
-    public BoardModel(PropertyPanel propertyPanel) {
-        this.propertyPanel = propertyPanel;
-    }
-
-    public void setCurrentShape(Shape shape) {
-        currentShape = shape;
-        propertyPanel.updateProperties(shape); //FIXME: use Observer logic instead, apply design patterns...
-    }
+    public BoardModel() {}
 
     public void addShape(Shape shape) {
         Shapes.add(shape);
@@ -57,12 +50,6 @@ public class BoardModel {
             }
         }
         return null;
-    }
-
-    public void drawShapes(Graphics2D g2d){
-        for(Shape shape : Shapes){
-            shape.draw(g2d);
-        }
     }
 
 }

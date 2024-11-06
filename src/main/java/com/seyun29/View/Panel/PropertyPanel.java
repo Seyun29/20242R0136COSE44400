@@ -1,35 +1,30 @@
-package com.seyun29;
+package com.seyun29.View.Panel;
 
-import com.seyun29.Model.BoardModel;
-import com.seyun29.Model.Shape;
-import lombok.Setter;
+import com.seyun29.Controller.Controller;
+import com.seyun29.Model.Shape.Shape;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-import static com.seyun29.Model.GlobalProperties.*;
+import static com.seyun29.GlobalProperties.*;
 
 public class PropertyPanel extends JPanel {
-    //TODO: add buttons to apply the property changes
-    //TODO: add button to remove the selected shape
-    private final JTextField typeField;
-    private final JTextField stringField; //for TEXT only
-    private final JTextField x1Field; //ALL
-    private final JTextField y1Field; //ALL
-    private final JTextField x2Field; //LINE
-    private final JTextField y2Field; //LINE
-    private final JTextField widthField; //RECT, ELLIPSE, IMAGE
-    private final JTextField heightField; //RECT, ELLIPSE, IMAGE
-    private final JTextField strokeField; //LINE
-    private final JTextField colorField; //ALL
+    public final JTextField typeField;
+    public final JTextField stringField; //for TEXT only
+    public final JTextField x1Field; //ALL
+    public final JTextField y1Field; //ALL
+    public final JTextField x2Field; //LINE
+    public final JTextField y2Field; //LINE
+    public final JTextField widthField; //RECT, ELLIPSE, IMAGE
+    public final JTextField heightField; //RECT, ELLIPSE, IMAGE
+    public final JTextField strokeField; //LINE
+    public final JTextField colorField; //ALL
 
-    @Setter
-    private BoardModel boardModel;
-    @Setter
-    private CanvasPanel canvasPanel;
+    private final Controller controller;
 
-    public PropertyPanel() {
+    public PropertyPanel(Controller controller) {
+        this.controller = controller;
         //FIXME: adjust fields being shown according to the types of the shape (enum)
         this.setBackground(PROPERTY_PANEL_COLOR);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -54,49 +49,16 @@ public class PropertyPanel extends JPanel {
         this.add(createLabeledField("Color", colorField = new JTextField(), labelFont, fieldFont));
 
         Button applyButton = new Button("Apply Changes");
-        applyButton.addActionListener(e -> {
-            Shape currentShape = boardModel.getCurrentShape();
-            if (currentShape != null) {
-                currentShape.setText(stringField.getText().isEmpty() ? null : stringField.getText());
-                currentShape.setX1(Double.parseDouble(x1Field.getText()));
-                currentShape.setY1(Double.parseDouble(y1Field.getText()));
-                currentShape.setX2(x2Field.getText().isEmpty() ? null : Double.parseDouble(x2Field.getText()));
-                currentShape.setY2(y2Field.getText().isEmpty() ? null : Double.parseDouble(y2Field.getText()));
-                currentShape.setWidth(widthField.getText().isEmpty() ? null : Double.parseDouble(widthField.getText()));
-                currentShape.setHeight(heightField.getText().isEmpty() ? null : Double.parseDouble(heightField.getText()));
-                currentShape.setStroke(Integer.parseInt(strokeField.getText()));
-                currentShape.setColor(Color.decode(colorField.getText()));
-                canvasPanel.refresh();
-            }
-        });
+        applyButton.addActionListener(e -> this.controller.applyPropertyUpdate());
 
         Button bringToFrontButton = new Button("Bring to Front");
-        bringToFrontButton.addActionListener(e -> {
-            Shape currentShape = boardModel.getCurrentShape();
-            if (currentShape != null) {
-                boardModel.bringToFront(currentShape);
-                canvasPanel.refresh();
-            }
-        });
+        bringToFrontButton.addActionListener(e -> controller.applyBringToFront());
 
         Button sendtoBackButton = new Button("Send to Back");
-        sendtoBackButton.addActionListener(e -> {
-            Shape currentShape = boardModel.getCurrentShape();
-            if (currentShape != null) {
-                boardModel.sendToBack(currentShape);
-                canvasPanel.refresh();
-            }
-        });
+        sendtoBackButton.addActionListener(e -> controller.applySendToBack());
 
         Button removeButton = new Button("Remove this Object");
-        removeButton.addActionListener(e -> {
-            Shape currentShape = boardModel.getCurrentShape();
-            if (currentShape != null) {
-                boardModel.removeShape(currentShape);
-                canvasPanel.refresh();
-                updateProperties(null);
-            }
-        });
+        removeButton.addActionListener(e -> controller.applyRemoveShape());
 
         this.add(applyButton);
         this.add(bringToFrontButton);

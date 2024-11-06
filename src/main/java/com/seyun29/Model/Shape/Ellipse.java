@@ -1,4 +1,4 @@
-package com.seyun29.Model;
+package com.seyun29.Model.Shape;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

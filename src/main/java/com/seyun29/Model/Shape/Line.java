@@ -1,8 +1,7 @@
-package com.seyun29.Model;
+package com.seyun29.Model.Shape;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 
 public class Line extends Shape {
     private final Line2D line2D;

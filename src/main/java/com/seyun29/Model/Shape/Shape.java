@@ -1,4 +1,4 @@
-package com.seyun29.Model;
+package com.seyun29.Model.Shape;
 
 import com.seyun29.Helper;
 import lombok.Getter;

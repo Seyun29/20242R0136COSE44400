@@ -1,15 +1,15 @@
 package com.seyun29;
 
 //import java.awt.*;
-import com.seyun29.Model.*;
-import com.seyun29.Model.Image;
-import com.seyun29.Model.Rectangle;
-import com.seyun29.Model.Shape;
+import com.seyun29.Model.Shape.*;
+import com.seyun29.Model.Shape.Image;
+import com.seyun29.Model.Shape.Rectangle;
+import com.seyun29.Model.Shape.Shape;
 
 import java.awt.*;
 import java.util.Random;
 
-import static com.seyun29.Model.GlobalProperties.*;
+import static com.seyun29.GlobalProperties.*;
 
 public class Helper {
     public static Color randomColor() {
@@ -34,11 +34,6 @@ public class Helper {
             default:
                 return null;
         }
-    }
-
-    public static Text createText(String string) {
-        Random random = new Random();
-        return new Text(random.nextDouble()*WINDOW_WIDTH, random.nextDouble()*WINDOW_HEIGHT, string.isEmpty() ? "EMPTY_TEXT" : string, 3, randomColor());
     }
 
     public static Image createImage(String imagePath) {

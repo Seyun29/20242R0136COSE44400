@@ -1,7 +1,13 @@
-package com.seyun29.Model;
+package com.seyun29.Model.Shape;
+
+import com.seyun29.Helper;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
+
+import static com.seyun29.GlobalProperties.WINDOW_HEIGHT;
+import static com.seyun29.GlobalProperties.WINDOW_WIDTH;
 
 public class Text extends Shape {
 
@@ -41,5 +47,10 @@ public class Text extends Shape {
     public void move(int deltaX, int deltaY) {
         this.setX1(this.getX1() + deltaX);
         this.setY1(this.getY1() + deltaY);
+    }
+
+    public static Text createText(String string) {
+        Random random = new Random();
+        return new Text(random.nextDouble()*WINDOW_WIDTH, random.nextDouble()*WINDOW_HEIGHT, string.isEmpty() ? "EMPTY_TEXT" : string, 3, Helper.randomColor());
     }
 }

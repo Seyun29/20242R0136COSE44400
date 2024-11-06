@@ -1,6 +1,8 @@
 package com.seyun29;
 
 
+import com.seyun29.View.MainFrame;
+
 import javax.swing.*;
 
 public class Main {
@@ -9,7 +11,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MyFrame frame = new MyFrame();
+                MainFrame frame = new MainFrame();
                 frame.setVisible(true);
             }
         });
