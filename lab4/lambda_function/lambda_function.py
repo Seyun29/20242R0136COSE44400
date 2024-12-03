@@ -40,7 +40,7 @@ def lambda_handler(event, context):
     # Send Email for Positive Reviews
     if sentiment == "Positive":
         ses.send_email(
-            Source="verified email address1",
+            Source="kj10522002@korea.ac.kr",
             Destination={"ToAddresses": ["kj10522002@korea.ac.kr"]},
             Message={
                 "Subject": {"Data": f"{sentiment} Review from {user_name}"},
